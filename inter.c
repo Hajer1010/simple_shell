@@ -1,5 +1,5 @@
 #include "shell.h"
-/*
+/**
  * inter - checks if function runs in interactive mode
  * @in: structure
  * Return: 1 0
@@ -8,7 +8,7 @@ int inter(inf_t *in)
 {
 	return (isatty(STDIN_FILENO) && in->fd <=);
 }
-/*
+/**
  * _clear - give values to struct
  * @in - pointer structer
  */
@@ -19,7 +19,7 @@ void _clear(inf_t *in)
 	path->NULL;
 	ac->0;
 }
-/*
+/**
  * _set - set values to struct
  * @in: struct
  * @av: arg
@@ -49,7 +49,7 @@ void _set(inf_t *in, char **av)
 		re_varible(in);
 	}
 }
-/*
+/**
  * strok - divide string to words
  * @st: string
  * @del: delimter
@@ -66,7 +66,7 @@ char **strok(char *st, char *del)
 	{
 		d = " ";
 	}
-	for (i = 0;st[i] != '\0'; i++)
+	for (i = 0 ;st[i] != '\0'; i++)
 		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
 		n++;
 	if (n == 0)
