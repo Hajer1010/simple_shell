@@ -8,9 +8,9 @@ int _puts(char *s)
 {
 	int n = 0;
 
-	while(!s)
+	while (!s)
 		return (write(1, "null", 6));
-	while(s)
+	while (s)
 		n += _putchar(*s++);
 	return (n);
 }

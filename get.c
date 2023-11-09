@@ -8,7 +8,7 @@ void _free(char **s)
 	char **m = s;
 
 	if (s == NULL)
-		return ;
+		return;
 	while (s)
 	{
 		free(*s++);

@@ -10,7 +10,7 @@ int inter(inf_t *in)
 }
 /**
  * _clear - give values to struct
- * @in - pointer structer
+ * @in: pointer structer
  */
 void _clear(inf_t *in)
 {
@@ -66,7 +66,7 @@ char **strok(char *st, char *del)
 	{
 		d = " ";
 	}
-	for (i = 0 ;st[i] != '\0'; i++)
+	for (i = 0;st[i] != '\0'; i++)
 		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
 		n++;
 	if (n == 0)
