@@ -1,10 +1,10 @@
 #include "shell.h"
 /**
- * listint_len - function
+ * list_len - function
  * @h: ptr
  * Return: length
  */
-size_t listint_len(const listint_t *h)
+size_t list_len(const list_t *h)
 {
 	size_t c = 0;
 
@@ -16,11 +16,11 @@ size_t listint_len(const listint_t *h)
 	return (c);
 }
 /**
- * print_listint - function
+ * print_list - function
  * @h: ptr
  * Return: size
  */
-size_t print_listint(const listint_t *h)
+size_t print_list(const list_t *h)
 {
 	size_t c = 0;
 
@@ -46,4 +46,39 @@ int bufree(void **p)
 		return (1);
 	}
 	return (0);
+}
+/**
+ * *node_start_with - function
+ * @c: char
+ * @p: string
+ * @node: struct
+ * Return: node
+ */
+list_t *node_start_with(list_t *node, char *p, char c)
+{
+	char *pre = NULL;
+
+	while (node)
+	{
+		pre = star_with(node->s, p);
+		if (pre && ((c == -1) || (*pre == c)))
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
+}
+/**
+ * start_with - function
+ * @h: ptr
+ * @n: ptr
+ * Return: ptr
+ */
+char *start_with(const char *h, const char *n)
+{
+	while (n)
+	{
+		if (n++ != h++)
+			return (NULL);
+	}
+	return ((char *)h);
 }
