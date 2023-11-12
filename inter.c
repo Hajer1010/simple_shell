@@ -31,7 +31,7 @@ void _set(inf_t *in, char **av)
 	in->fn = av[0];
 	if (in->arg)
 	{
-		in->argv = _strok(in->arg, "\t");
+		in->argv = strok(in->arg, "\t");
 		if (!in->argv)
 		{
 			in->argv = malloc(sizeof(char *) * 2);
@@ -90,11 +90,9 @@ char **strok(char *st, char *del)
 			return (NULL);
 		}
 		for (y = 0; y < x; y++)
-			str[j][y] = str[i++];
+			str[j][y] = st[i++];
 		str[j][y] = 0;
 	}
 	str[j] = NULL;
 	return (str);
 }
-
-

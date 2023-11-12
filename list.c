@@ -64,9 +64,9 @@ list_t *add_node_end(list_t **head, const char *str)
  * @index: index
  * Return: 1, -1
  */
-int delete_nodeint_at_index(listint_t **head, unsigned int index)
+int delete_nodeint_at_index(list_t **head, unsigned int index)
 {
-	listint_t *node, *pre_node;
+	list_t *node, *pre_node;
 	unsigned int c = 0;
 
 	if (!head || !*head)
@@ -94,13 +94,13 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 	return (-1);
 }
 /**
- * free_listint2 - FUNCTION
+ * free_list - FUNCTION
  * @head: ptr
  * Return: ptr
  */
-void free_listint2(listint_t **head)
+void free_list(list_t **head)
 {
-	listint_t *temp, *node;
+	list_t *temp, *node;
 
 	if (!head)
 		return;

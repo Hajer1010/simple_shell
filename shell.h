@@ -23,7 +23,8 @@
 #define CMD_CHAIN	3
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
-
+#define INF_INIT	\
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL , NULL, NULL, NULL, NULL, 0, 0, NULL,\ 0, 0, 0}
 extern char **env
 
 /**
@@ -38,7 +39,27 @@ typedef struct list
 	int n;
 	struct list *next;
 }list_t;
-
+/**
+ * struct inf - structure
+ * @arg: str
+ * @ac:arg count
+ * @en:envrion
+ * @fn:file name
+ * @his:history
+ * @en_mod:env chanched
+ * @status:status
+ * @env:copy of env
+ * @ali:alias
+ * @lcf:line count flag
+ * @lc:error count
+ * @ern:error num
+ * @path:string path
+ * @cbt:command buffer type
+ * @rfd:read fd
+ * @cb:command buf
+ * @hc:histry line count
+ * @argv:araay of string
+ */
 typedef struct inf
 {
 	char *arg;
@@ -46,23 +67,33 @@ typedef struct inf
 	char *fn; //file name
 	list_t *en;
 	list_t *his;
-	int st; //status
+	int status; //status
 	int en_mod;
 	char **env;
 	list_t *ali;
 	int lcf;
 	unsigned int lc; //line count
 	char path;
-	char *argv;
+	char **argv;
 	int ern; //error num
 	char cb; //command buffer
 	int cbt; //command buffer type
-	int fd;
+	int rfd;
 	int hc; //history counter
 }inf_t
+/**
+ * struct builtin - struct
+ * @t: char
+ * @fun: function
+ */
+typedef struct builtin
+{
+	char *t;
+	int (*fun)(inf_t *);
+}builtin_t;
 
-size_t listint_len(const listint_t *h);
-size_t print_listint(const listint_t *h);
+size_t list_len(const list_t *h);
+size_t print_list(const list_t *h);
 int bufree(void **p);
 int _putchar(char c);
 int _strlen(char *s);
@@ -92,8 +123,8 @@ char **strok(char *st, char *del);
 int _atoi(char *s);
 int _isalpha(int c);
 list_t *add_node(list_t **head, const char *str);
-ist_t *add_node_end(list_t **head, const char *str);
-int delete_nodeint_at_index(listint_t **head, unsigned int index);
-void free_listint2(listint_t **head);
+list_t *add_node_end(list_t **head, const char *str);
+int delete_node_at_index(list_t **head, unsigned int index);
+void free_list(list_t **head);
 
 #endif
