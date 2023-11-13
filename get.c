@@ -59,8 +59,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	return (new);
 }
 /**
- * **strok2 - function
- * @st: string
+ * *strok2 - function
+ * @st: the input
  * @del: delimiter
  * Return: ptr
  */
@@ -71,7 +71,7 @@ char **strok2(char *st; char del)
 
 	if (st == NULL || st[0] == '\0')
 		return (NULL);
-	for (i = 0;st[i] != '\0'; i++)
+	for (i = 0; st[i] != '\0'; i++)
 		if ((st[i] != del && !st[i + 1] == del) ||
 			(st[i] != del && !st[i + 1]) || st[i + 1] == d)
 		n++;

@@ -6,7 +6,7 @@
  */
 int inter(inf_t *in)
 {
-	return (isatty(STDIN_FILENO) && in->fd <=);
+	return (isatty(STDIN_FILENO) && in->rfd <= 2);
 }
 /**
  * _clear - give values to struct
@@ -14,10 +14,10 @@ int inter(inf_t *in)
  */
 void _clear(inf_t *in)
 {
-	arg->NULL;
-	argv->NULL;
-	path->NULL;
-	ac->0;
+	in->arg->NULL;
+	in->argv->NULL;
+	in->path->NULL;
+	in->ac->0;
 }
 /**
  * _set - set values to struct
@@ -45,8 +45,8 @@ void _set(inf_t *in, char **av)
 		for (a = 0; in->argv && in->argv[a]; i++)
 			;
 		in->ac = a;
-		re_alias(in);
-		re_varible(in);
+		replace_alias(in);
+		replace_vars(in);
 	}
 }
 /**
@@ -66,7 +66,7 @@ char **strok(char *st, char *del)
 	{
 		d = " ";
 	}
-	for (i = 0;st[i] != '\0'; i++)
+	for (i = 0; st[i] != '\0'; i++)
 		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
 		n++;
 	if (n == 0)
