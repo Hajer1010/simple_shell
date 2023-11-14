@@ -41,11 +41,11 @@ int shell(inf_t *in, char **av)
 	return (bul);
 }
 /**
- * find_builin - function
+ * find_builtin - function
  * @in: struct
  * Return: -1 0 1 2
  */
-int find_builin(inf_t *in)
+int find_builtin(inf_t *in)
 {
 	int x, builtin_r = -1;
 	builtin_t builtint[] = {
