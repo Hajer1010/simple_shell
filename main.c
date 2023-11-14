@@ -35,7 +35,7 @@ int main(int ac, char **av)
 	}
 	populate_env_list(in);
 	r_hist(in);
-	sh(in, av);
+	shell(in, av);
 	return (EXIT_SUCCESS);
 }
 

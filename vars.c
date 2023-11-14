@@ -74,7 +74,7 @@ int replace_alias(inf_t *in)
 		if (!node)
 			return (0);
 		free(in->argv[0]);
-		p = _strchr(node->s, '=');
+		p = _strchr(node->str, '=');
 		if (!p)
 			return (0);
 		p = _strdup(p + 1);
@@ -100,12 +100,12 @@ int replace_vars(inf_t *in)
 			continue;
 		if (!_strcmp(in->argv[i], "$?"))
 		{
-			replace_string(&(in->argv[i]), _strdup(convert_number(in->status, 10, 0)));
+			replace_string(&(in->argv[i]), _strdup(con_num(in->status, 10, 0)));
 			continue;
 		}
 		if (!_strcmp(in->argv[i], "$$"))
 		{
-			replace_string(&(info->argv[i]), _strdup(convert_number(getpid(), 10, 0)));
+			replace_string(&(info->argv[i]), _strdup(con_num(getpid(), 10, 0)));
 			continue;
 		}
 		node = node_start_with(in->en, &in->argv[i][1], '=');

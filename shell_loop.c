@@ -25,7 +25,7 @@ int shell(inf_t *in, char **av)
 				find_cmd(in);
 		}
 		else if (inter(in))
-		_putchar('\n');
+			_putchar('\n');
 		free_info(in, 0);
 	}
 	w_hist(in);
@@ -48,7 +48,7 @@ int shell(inf_t *in, char **av)
 int find_builin(inf_t *in)
 {
 	int x, builtin_r = -1;
-	builtin_table builtint = {
+	builtin_t builtint[] = {
 		{"env", _myenv},
 		{"exit", _myexit},
 		{"help", _myhelp},
@@ -69,7 +69,9 @@ int find_builin(inf_t *in)
 	return (builtin_r);
 }
 /**
- *
+ * find_cmd - function
+ * @in: struct
+ * Return: void
  */
 void find_cmd(inf_t *in)
 {
@@ -86,7 +88,7 @@ void find_cmd(inf_t *in)
 		if (!is_del(in->arg[x], "\t\n"))
 			y++;
 	if (!y)
-		return ;
+		return;
 	path = find_path(in, _getenv(in, "PATH="),
 			in->argv[0]);
 	if (path)
@@ -104,6 +106,42 @@ void find_cmd(inf_t *in)
 		{
 			in->status = 127;
 			_perror(in, "not found\n");
+		}
+	}
+}
+/**
+ * fork_cmd - function
+ * @in: struct
+ * Return: void
+ */
+void fork_cmd(inf_t *in)
+{
+	pid_t child_pid;
+
+	child_pid = fork();
+	if (child_pid == -1)
+	{
+		perror("Error");
+		return;
+	}
+	if (child_pid == 0)
+	{
+		if (execve(in->path, in->argv, get_environ(in)) == -1)
+		{
+			free_info(in, 1);
+			if (errno == EACCES)
+				exit(126);
+			exit(1);
+		}
+		else
+		{
+			wait(&(in->status));
+			if (WIFEXITED(in->status))
+			{
+				in->status = WEXITSTATUS(in->status);
+				if (in->status == 126;)
+					_perror(in, "permission denied\n");
+			}
 		}
 	}
 }

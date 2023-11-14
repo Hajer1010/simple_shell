@@ -1,4 +1,4 @@
-#include "shell"
+#include "shell.h"
 
 /**
  * input_buf - buffers command
@@ -32,7 +32,7 @@ ssize_t input_buf(inf_t *in, char **buf, size_t *len)
 		r--;
 		}
 		in->lcf = 1;
-		rmcomments(*buf);
+		rm_comments(*buf);
 		build_hist_list(in, *buf, in->hc++);
 
 		if (_strchr(*buf, ';'))
@@ -54,7 +54,7 @@ ssize_t get_input(inf_t *in)
 	static char *buf;
 	static size_t i, j, len;
 	ssize_t r = 0;
-	char **buf_p = &(info->arg), *p;
+	char **buf_p = &(in->arg), *p;
 
 	_putchar(BUF_FLUSH);
 	r = input_buf(in, &buf, &len);
@@ -128,7 +128,7 @@ int _getline(inf_t *in, char **ptr, size_t *length)
 	k = c ? 1 + (unsigned int)(c - buf) : len;
 	new_p = _realloc(p, s, s ? s + k : k + 1);
 	if (!new_p)
-		return (p) ? (free(p), -1) : -1;
+		return ((p) ? (free(p), -1) : -1);
 	if (s)
 		_strncat(new_p, buf + i, k - i);
 	else

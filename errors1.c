@@ -88,22 +88,27 @@ void rm_comments(char *b)
 char *con_num(int b, long int n, int f)
 {
 	static char buf[50];
-	char *p = &buf[49];
-	*p = '\0';
+	char *p;
+	static char a;
+	char g = 0;
 	unsigned long num = n;
 
 	if (!(f & CONVERT_UNSIGNED) && n < 0)
 	{
 		num = -n;
-		*--p = '-';
+		g = '-';
 	}
-	char *a = (f & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+	a = (f & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+	p = &buf[49];
+	*p = '\0';
 
 	while (n != 0)
 	{
 		*--p = a[num % b];
 		num /= b;
 	}
+	if (g)
+		*--p = g;
 	return (p);
 }
 /**
@@ -120,7 +125,7 @@ int e_atoi(char *s)
 		s++;
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (isdigit(s[i]))
+		if (s[i] >= '0' && s[i] <= '9')
 		{
 			r = r * 10 + (s[i] - '0');
 			if (r > INT_MAX)

@@ -6,7 +6,7 @@
  */
 int _history(inf_t *in)
 {
-	print_listint(in->hist);
+	print_list(in->his);
 	return (0);
 }
 /**
@@ -25,8 +25,8 @@ int _unset_alias(inf_t *in, char *s)
 		return (1);
 	m = *p;
 	*p = 0;
-	r = delete_nodeint_at_index(&(in->ali),
-			*get_nodeint_at_index(in->ali, node_start_with(in->ali, s, -1)));
+	r = delete_node_at_index(&(in->ali),
+			*get_node_at_index(in->ali, node_start_with(in->ali, s, -1)));
 	*p = m;
 	return (r);
 }
@@ -64,7 +64,7 @@ int print_ali(list_t *node)
 	if (node)
 	{
 		eq_sign = _strchr(node->s, '=');
-		for (v = node->s; v <= eq_sign; v++;)
+		for (v = node->str; v <= eq_sign; v++;)
 			_putchar(*v);
 			_putchar('\'');
 			_puts(eq_sign + 1);

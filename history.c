@@ -40,20 +40,15 @@ int w_history(inf_t *in)
 		return (-1);
 	while (node)
 	{
-		if (_putsfd(node->s, fd) == -1 || _putfd('\n', fd) == -1)
+		for (node = in->his; node; node = node->next)
 		{
-			close(fd);
-			return (-1);
+			_psfd(node->str, fd);
+			_putfd('\n', fd);
 		}
-		node = node->next;
-	}
-	if (_putfd(BUF_FLUSH, fd) == -1)
-	{
+		_putfd(BUF_FLUSH, fd);
 		close(fd);
-		return (-1);
+		return (1);
 	}
-	close(fd);
-	return (1);
 }
 /**
  * r_hist - function that read history
@@ -65,7 +60,7 @@ int r_hist(inf_t *in)
 	int x = 0, c = 0, la = 0;
 	ssize_t fd, rd, fz = 0;
 	struct stat st;
-	char *b = null, *f = get_hist_file(in);
+	char *b = NULL, *f = get_hist_file(in);
 
 	if (!f)
 		return (0);
@@ -91,7 +86,7 @@ int r_hist(inf_t *in)
 		if (b[x] == '\n')
 		{
 			b[x] = '\0';
-			buld_hist_list(in, b + la, c++);
+			build_hist_list(in, b + la, c++);
 			la = x + 1; }
 		x++; }
 	if (la != i)
@@ -115,7 +110,7 @@ int renum_hist(inf_t *in)
 
 	for (i = 0; node; i++)
 	{
-		node->n = i;
+		node->num = i;
 		node = node->next;
 	}
 	return (in->hc = i);
@@ -131,12 +126,12 @@ int build_hist_list(inf_t *in, char *b, int c)
 {
 	list_t *node = NULL;
 
-	if (in->hist)
+	if (in->his)
 	{
-		node = in->hist;
+		node = in->his;
 		add_node_end(&node, b, c);
 	}
-	if (!in->hist)
-		in->hist = node;
+	if (!in->his)
+		in->his = node;
 	return (0);
 }

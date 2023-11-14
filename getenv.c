@@ -29,7 +29,7 @@ int _unsetenv(inf_t *in, char *var)
 		return (0);
 	while (node)
 	{
-		p = start_with(node->s, var);
+		p = start_with(node->str, var);
 		if (p && *p == '=')
 		{
 			in->en_mod = delete_node_at_index(&(in->en), i);
@@ -66,11 +66,11 @@ int _setenv(inf_t *in, char *var, char *value)
 	node = in->en;
 	while (node)
 	{
-		p = start_with(node->s, var);
+		p = start_with(node->str, var);
 		if (p && *p == '=')
 		{
-			free(node->s);
-			node->s = buf;
+			free(node->str);
+			node->str = buf;
 			in->en_mod = 1;
 			return (0);
 		}
@@ -80,4 +80,37 @@ int _setenv(inf_t *in, char *var, char *value)
 	free(buf);
 	in->en_mod = 1;
 	return (0);
+}
+/**
+ * **list_to_strings - function
+ * @h: ptr
+ * Return: str
+ */
+char **list_to_strings(list_t *h)
+{
+	list_t *node = h;
+	size_t x = list_len(h), y;
+	char **st;
+	char *str;
+
+	if (!h || !x)
+		return (NULL);
+	st = malloc(sizeof(char *) * (x + 1));
+	if (!st)
+		return (NULL);
+	for (x = 0; node; node = node->next, x++)
+	{
+		str = malloc(_strlen(node->str) + 1);
+		if (!str)
+		{
+			for (y = 0; y < x; y++)
+				free(st[y]);
+			free(st);
+			return (NULL);
+		}
+		str = _strcpy(str, node->str);
+		st[x] = str;
+	}
+	st[x] = NULL;
+	return (st);
 }

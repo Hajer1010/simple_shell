@@ -22,7 +22,7 @@ char *_getenv(inf_t *in, const char *na)
 
 	while (node)
 	{
-		p = start_with(node->s, na)
+		p = start_with(node->str, na)
 			if (p && *p)
 				return (p);
 		node = node->next;

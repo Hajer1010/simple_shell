@@ -32,21 +32,3 @@ char *_memset(char *s, char b, unsigned int n)
 	}
 	return (s);
 }
-/**
- * get_en - returns copy
- * @in: struct
- * Return: 0
- */
-char **get_en(inf_t *in)
-{
-	if (!in->env || in->en_mod)
-	{
-		in->env = list_to_string(in->en);
-		in->en_mod = 0;
-	}
-	return (in->env);
-}
-/**
- *
- */
-

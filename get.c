@@ -59,12 +59,12 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	return (new);
 }
 /**
- * *strok2 - function
- * @st: the input
+ * **strok2 - function
+ * @st: input
  * @del: delimiter
  * Return: ptr
  */
-char **strok2(char *st; char del)
+char **strok2(char *st, char del)
 {
 	int x, y, i, j, n = 0;
 	char **str;
@@ -101,4 +101,32 @@ char **strok2(char *st; char del)
 	}
 	str[j] = NULL;
 	return (str);
+}
+/**
+ * free_info - function
+ * @in: struct
+ * @f: files
+ */
+void free_info(inf_t *in, int f)
+{
+	_free(in->argv);
+	in->argv = NULL;
+	in->path = NULL;
+	if (f)
+	{
+		if (!in->cb)
+			free(in->argv);
+		if (in->en)
+			free_list(&(in->en));
+		if (in->his)
+			free_list(&(in->his));
+		if (in->ali)
+			free_list(&(in->ali));
+		_free(in->env);
+		in->env = NULL;
+		bufree((void **)in->cb);
+		if (in->rfd > 2)
+			close(in->rfd);
+		_putchar(BUF_FLUSH);
+	}
 }

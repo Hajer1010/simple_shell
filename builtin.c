@@ -23,7 +23,7 @@ int _myexit(inf_t *in)
 		in->en = e_atoi(in->argv[1]);
 		return (-2);
 	}
-	in->en = -1;
+	in->ern = -1;
 	return (-2);
 }
 /**
