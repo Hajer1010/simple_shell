@@ -2,7 +2,7 @@
 /**
  * is_cmd - function
  * @in: struct
- * @p: path
+ * @path: path
  * Return: 1 0
  */
 int is_cmd(inf_t *in, char *path)
@@ -40,7 +40,7 @@ char *dup_chars(char *ps, int sa, int so)
  * *find_path - FUNCTION
  * @in: struct
  * @ps: path string
- * @cm: command
+ * @cmd: command
  * Return: null or cmd
  */
 char *find_path(inf_t *in, char *ps, char *cmd)

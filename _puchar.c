@@ -8,6 +8,7 @@ int _putchar(char c)
 {
 	static int a;
 	static char b[WRITE_BUF_SIZE];
+
 	if (c == BUF_FLUSH || a >= WRITE_BUF_SIZE)
 	{
 		write(1, b, a);
@@ -66,7 +67,7 @@ char *_strcpy(char *dest, char *src)
 	if (dest == src || src == 0)
 		return (dest);
 	while (src[i] != '\0')
-       	{
+	{
 		dest[i] = src[i];
 		i++;
 	}
