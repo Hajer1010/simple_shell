@@ -45,15 +45,21 @@ void check_chain(inf_t *in, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
 
-	if (in->cbt == CMD_AND && in->status)
+	if (in->cbt == CMD_AND)
 	{
-		buf[i] = 0;
-		j = len;
+		if (in->status)
+		{
+			buf[i] = 0;
+			j = len;
+		}
 	}
-	if (in->cbt == CMD_OR && !in->status)
+	if (in->cbt == CMD_OR)
 	{
-		buf[i] = 0;
-		j = len;
+		if (!in->status)
+		{
+			buf[i] = 0;
+			j = len;
+		}
 	}
 	*p = j;
 }

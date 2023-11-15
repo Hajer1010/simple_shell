@@ -6,31 +6,39 @@
  */
 int _atoi(char *s)
 {
-	unsigned int num = 0;
-	int sign = 1;
+	unsigned int r = 0;
+	int i, sign = 1, flag = 0, o;
 
-	do {
-		if (*s == '-')
+	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	{
+		if (s[i] == '-')
 			sign *= -1;
-		else if (*s >= '0' && *s <= '9')
-			num = (num * 10) + (*s - '0');
-		else if (num > 0)
-			break;
-	} while (*s++);
-	return (num * sign);
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			flag = 1;
+			r *= 10;
+			r += (s[i] - '0');
+		}
+		else if (flag == 1)
+			flag = 2;
+	}
+	if (sign == -1)
+		o = -r;
+	else
+		o = r;
+	return (o);
 }
 /**
- * _isalpha- function that checks for lowercase character
+ * _isalpha- function that checks for character
  * @c: checks input of function
  * Return: returns 1 if 'c' is true otherwise 0
  */
 int _isalpha(int c)
 {
-	if (c >= 97 && c <= 122)
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
-	if (c >= 65 && c <= 90)
-		return (1);
-	return (0);
+	else
+		return (0);
 }
 /**
  * get_node_index - function

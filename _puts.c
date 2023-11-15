@@ -4,15 +4,17 @@
  * @s: string to print
  * Return: 0
  */
-int _puts(char *s)
+void _puts(char *s)
 {
 	int n = 0;
 
-	while (!s)
-		return (write(1, "null", 6));
-	while (s)
-		n += _putchar(*s++);
-	return (n);
+	if (!s)
+		return;
+	while (s[n] != '\0')
+	{
+		_putchar(s[n]);
+		n++;
+	}
 }
 /**
  *_memset - function that fills memory with a constant byte
@@ -23,12 +25,11 @@ int _puts(char *s)
  */
 char *_memset(char *s, char b, unsigned int n)
 {
-	unsigned int a = 0;
+	unsigned int a;
 
-	while (n > 0)
+	for (a = 0; a < n; a++)
 	{
 		s[a] = b;
-		a++, n--;
 	}
 	return (s);
 }

@@ -5,12 +5,12 @@
  * @p: path
  * Return: 1 0
  */
-int is_cmd(inf_t *in, char *p)
+int is_cmd(inf_t *in, char *path)
 {
 	struct stat st;
 
 	(void)in;
-	if (!p || stat(p, &st))
+	if (!path || stat(path, &st))
 		return (0);
 	if (st.st_mode & S_IFREG)
 	{
@@ -43,17 +43,17 @@ char *dup_chars(char *ps, int sa, int so)
  * @cm: command
  * Return: null or cmd
  */
-char *find_path(inf_t *in, char *ps, char *cm)
+char *find_path(inf_t *in, char *ps, char *cmd)
 {
 	int i = 0, m = 0;
 	char *p;
 
 	if (!ps)
 		return (NULL);
-	if ((_strlen(cm) > 2) && start_with(cm, "./"))
+	if ((_strlen(cmd) > 2) && start_with(cmd, "./"))
 	{
-		if (is_cmd(in, cm))
-			return (cm);
+		if (is_cmd(in, cmd))
+			return (cmd);
 	}
 	while (1)
 	{
@@ -61,11 +61,11 @@ char *find_path(inf_t *in, char *ps, char *cm)
 		{
 			p = dup_chars(ps, m, i);
 			if (!*p)
-				_strcat(p, cm);
+				_strcat(p, cmd);
 			else
 			{
 				_strcat(p, "/");
-				_strcat(p, cm);
+				_strcat(p, cmd);
 			}
 			if (is_cmd(in, p))
 				return (p);

@@ -45,7 +45,7 @@ int set_ali(inf_t *in, char *s)
 	{
 		return (1);
 	}
-	if (*++eq_sign)
+	if (!*++eq_sign)
 	{
 		return (_unset_alias(in, s));
 	}

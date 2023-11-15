@@ -62,23 +62,23 @@ ssize_t get_input(inf_t *in)
 		return (-1);
 	if (len)
 	{
-	j = i;
-	p = buf + i;
-	check_chain(in, buf, &j, i, len);
-	while (j < len)
-	{
-		if (is_chain(in, buf, &j))
-			break;
-		j++;
-	}
-	i = j + 1;
-	if (i >= len)
-	{
-	i = len = 0;
-	in->cbt = CMD_NORM;
-	}
-	*buf_p = p;
-	return (_strlen(p));
+		j = i;
+		p = buf + i;
+		check_chain(in, buf, &j, i, len);
+		while (j < len)
+		{
+			if (is_chain(in, buf, &j))
+				break;
+			j++;
+		}
+		i = j + 1;
+		if (i >= len)
+		{
+			i = len = 0;
+			in->cbt = CMD_NORM;
+		}
+		*buf_p = p;
+		return (_strlen(p));
 	}
 	*buf_p = buf;
 	return (r);
@@ -149,6 +149,7 @@ int _getline(inf_t *in, char **ptr, size_t *length)
 */
 void sigintHandler(__attribute__((unused)) int sig_num)
 {
-	_puts("\n$ ");
+	_puts("\n");
+	_puts("$ ");
 	_putchar(BUF_FLUSH);
 }

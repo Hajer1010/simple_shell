@@ -14,7 +14,7 @@ int shell(inf_t *in, char **av)
 	{
 		_clear(in);
 		if (inter(in))
-			_puts("$");
+			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		x = get_input(in);
 		if (x != -1)
@@ -49,13 +49,13 @@ int find_builtin(inf_t *in)
 {
 	int x, builtin_r = -1;
 	builtin_t builtint[] = {
-		{"env", _myenv},
 		{"exit", _myexit},
+		{"env", _myenv},
 		{"help", _myhelp},
 		{"history", _history},
-		{"cd", _mycd},
 		{"setenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
+		{"cd", _mycd},
 		{"alias", _alias},
 		{NULL, NULL}
 	};

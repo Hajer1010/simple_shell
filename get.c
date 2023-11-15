@@ -7,7 +7,7 @@ void _free(char **s)
 {
 	char **m = s;
 
-	if (s == NULL)
+	if (!s)
 		return;
 	while (s)
 	{
@@ -24,38 +24,23 @@ void _free(char **s)
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *new;
-	unsigned int i;
+	char *new;
 
+	if (!ptr)
+		return (malloc(new_size));
+	if (!new_size)
+		return (free(ptr), NULL);
 	if (new_size == old_size)
 	{
 		return (ptr);
 	}
-	if (new_size == 0 && ptr != NULL)
-	{
-		free(ptr);
+	new = malloc(new_size);
+	if (!new)
 		return (NULL);
-	}
-	if (ptr == NULL)
-	{
-		new = malloc(new_size);
-		if (new == NULL)
-		{
-			return (NULL);
-		}
-		return (new);
-	}
-	if (new_size > old_size)
-	{
-		new = malloc(new_size);
-		if (new == NULL)
-		{
-			return (NULL);
-		}
-		for (i = 0; i < old_size && i < new_size; i++)
-			*((char *)new + i) = *((char *)ptr + i);
-		free(ptr);
-	}
+	old_size = old_size < new_size ? old_size : new_size;
+	while (old_size--)
+		new[old_size] = ((char *)ptr)[old_size];
+	free(ptr);
 	return (new);
 }
 /**

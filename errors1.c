@@ -8,11 +8,11 @@
 void _perror(inf_t *in, char *es)
 {
 	_eputs(in->fn);
-	_eputs(":");
+	_eputs(": ");
 	print_dec(in->lc, STDERR_FILENO);
-	_eputs(":");
+	_eputs(": ");
 	_eputs(in->argv[0]);
-	_eputs(":");
+	_eputs(": ");
 	_eputs(es);
 }
 /**
@@ -24,39 +24,33 @@ void _perror(inf_t *in, char *es)
 int print_dec(int n, int fd)
 {
 	int (*_putchars)(char) = _putchar;
-	int c = 0;
-	int d = 1;
-	int temp = n;
-	int di = n / d;
+	int x, c = 0;
+	unsigned int ab, cu;
 
 	if (fd == STDERR_FILENO)
 	{
-		_putchars = _putchar;
+		_putchars = _eputchar;
 	}
 	if (n < 0)
 	{
+		ab = -n;
 		_putchars('-');
 		c++;
-		n = -n;
 	}
-	if (n == 0)
+	else
+		ab = n;
+	cu = ab;
+	for (x = 1000000000; x > 1; x /= 10)
 	{
-		_putchars('0');
-		c++;
-		return (c);
+		if (ab / x)
+		{
+			_putchars('0' + cu / x);
+			c++;
+		}
+		cu %= x;
 	}
-	while (temp > 9)
-	{
-		d *= 10;
-		temp /= 10;
-	}
-	while (d > 0)
-	{
-		_putchars('0' + di);
-		c++;
-		n %= d;
-		d /= 10;
-	}
+	_putchars('0' + cu);
+	c++;
 	return (c);
 }
 /**
@@ -70,7 +64,7 @@ void rm_comments(char *b)
 
 	while (b[i] != '\0')
 	{
-		if (b[i] == '#' && (i == 0 || b[i - 1] == ' '))
+		if (b[i] == '#' && (!i || b[i - 1] == ' '))
 		{
 			b[i] = '\0';
 			break;
@@ -85,7 +79,7 @@ void rm_comments(char *b)
  * @f: flag
  * Return: str
  */
-char *con_num(int b, long int n, int f)
+char *con_num(long int n, int b, int f)
 {
 	static char buf[50];
 	char *p;
@@ -127,14 +121,13 @@ int e_atoi(char *s)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
 		{
-			r = r * 10 + (s[i] - '0');
+			r *= 10;
+			r += (s[i] - '0');
 			if (r > INT_MAX)
 				return (-1);
 		}
 		else
-		{
 			return (-1);
-		}
 	}
 	return (r);
 }

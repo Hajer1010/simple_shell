@@ -6,7 +6,16 @@
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+	static int a;
+	static char b[WRITE_BUF_SIZE];
+	if (c == BUF_FLUSH || a >= WRITE_BUF_SIZE)
+	{
+		write(1, b, a);
+		a = 0;
+	}
+	if (c != BUF_FLUSH)
+		b[a++] = c;
+	return (1);
 }
 /**
  * _strlen - returns the length of a string
@@ -52,13 +61,16 @@ int _strcmp(char *s1, char *s2)
  */
 char *_strcpy(char *dest, char *src)
 {
-	int i = -1;
+	int i = 0;
 
-	do {
-		i++;
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i] != '\0')
+       	{
 		dest[i] = src[i];
-	} while (src[i] != '\0');
-
+		i++;
+	}
+	dest[i] = 0;
 	return (dest);
 }
 /**
