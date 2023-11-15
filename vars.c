@@ -106,18 +106,21 @@ int replace_vars(inf_t *in)
 			continue;
 		if (!_strcmp(in->argv[i], "$?"))
 		{
-			replace_string(&(in->argv[i]), _strdup(con_num(in->status, 10, 0)));
+			replace_string(&(in->argv[i]),
+					_strdup(con_num(in->status, 10, 0)));
 			continue;
 		}
 		if (!_strcmp(in->argv[i], "$$"))
 		{
-			replace_string(&(in->argv[i]), _strdup(con_num(getpid(), 10, 0)));
+			replace_string(&(in->argv[i]),
+					_strdup(con_num(getpid(), 10, 0)));
 			continue;
 		}
 		node = node_start_with(in->env, &in->argv[i][1], '=');
 		if (node)
 		{
-			replace_string(&(in->argv[i]), _strdup(_strchr(node->str, '=') + 1));
+			replace_string(&(in->argv[i]),
+					_strdup(_strchr(node->str, '=') + 1));
 			continue;
 		}
 		replace_string(&in->argv[i], _strdup(""));

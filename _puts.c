@@ -17,23 +17,6 @@ void _puts(char *s)
 	}
 }
 /**
- *_memset - function that fills memory with a constant byte
- * @n: bytes
- * @b: const
- * @s: pointer to the memory area
- * Return: pointer
- */
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int a;
-
-	for (a = 0; a < n; a++)
-	{
-		s[a] = b;
-	}
-	return (s);
-}
-/**
  * _strcat - a function that concatenates two strings
  * @dest: pointer to dest
  * @src: pointer to src
@@ -50,4 +33,17 @@ char *_strcat(char *dest, char *src)
 	*dest = *src;
 	return (r);
 
+}
+/**
+ * start_with - function
+ * @h: ptr
+ * @n: ptr
+ * Return: ptr
+ */
+char *start_with(const char *h, const char *n)
+{
+	while (n)
+		if (n++ != h++)
+			return (NULL);
+	return ((char *)h);
 }

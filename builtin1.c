@@ -10,12 +10,12 @@ int _history(inf_t *in)
 	return (0);
 }
 /**
- * _unset_alias - function
+ * unset_alias - function
  * @in: struct
  * @s: char
  * Return: 0
  */
-int _unset_alias(inf_t *in, char *s)
+int unset_alias(inf_t *in, char *s)
 {
 	char *p, m;
 	int r;
@@ -31,12 +31,12 @@ int _unset_alias(inf_t *in, char *s)
 	return (r);
 }
 /**
- * set_ali - function - function
+ * set_alias - function - function
  * @in: struct
  * @s: str
  * Return: 0
  */
-int set_ali(inf_t *in, char *s)
+int set_alias(inf_t *in, char *s)
 {
 	char *eq_sign;
 
@@ -44,16 +44,16 @@ int set_ali(inf_t *in, char *s)
 	if (!eq_sign)
 		return (1);
 	if (!*++eq_sign)
-		return (_unset_alias(in, s));
-	_unset_alias(in, s);
+		return (unset_alias(in, s));
+	unset_alias(in, s);
 	return (add_node_end(&(in->ali), s, 0) == NULL);
 }
 /**
- * print_ali - function
+ * print_alias - function
  * @node: struct
  * Return: 0
  */
-int print_ali(list_t *node)
+int print_alias(list_t *node)
 {
 	char *eq_sign = NULL, *v = NULL;
 
@@ -85,7 +85,7 @@ int _alias(inf_t *in)
 		node = in->ali;
 		while (node)
 		{
-			print_ali(node);
+			print_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -95,9 +95,9 @@ int _alias(inf_t *in)
 		eq_sign = _strchr(in->argv[i], '=');
 
 		if (eq_sign)
-			set_ali(in, in->argv[i]);
+			set_alias(in, in->argv[i]);
 		else
-			print_ali(node_start_with(in->ali, in->argv[i], '='));
+			print_alias(node_start_with(in->ali, in->argv[i], '='));
 	}
 	return (0);
 }

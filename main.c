@@ -36,7 +36,7 @@ int main(int argc, char **av)
 	}
 	populate_env_list(in);
 	r_hist(in);
-	shell(in, av);
+	hsh(in, av);
 	return (EXIT_SUCCESS);
 }
 

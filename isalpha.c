@@ -41,21 +41,24 @@ int _isalpha(int c)
 		return (0);
 }
 /**
- * get_node_index - function
- * @head: ptr
- * @node: ptr
- * Return: index -1
+ * inter - checks if function runs in interactive mode
+ * @in: structure
+ * Return: 1 0
  */
-ssize_t get_node_index(list_t *head, list_t *node)
+int inter(inf_t *in)
 {
-	size_t x = 0;
-
-	while (head)
-	{
-		if (head == node)
-			return (x);
-		head = head->next;
-		x++;
-	}
-	return (-1);
+	return (isatty(STDIN_FILENO) && in->rfd <= 2);
+}
+/**
+ * is_del - function
+ * @c: char
+ * @d: delimter
+ * Return: 1 0
+ */
+int is_del(char c, char *d)
+{
+	while (*d)
+		if (*d++ == c)
+			return (1);
+	return (0);
 }

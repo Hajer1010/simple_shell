@@ -1,14 +1,5 @@
 #include "shell.h"
 /**
- * inter - checks if function runs in interactive mode
- * @in: structure
- * Return: 1 0
- */
-int inter(inf_t *in)
-{
-	return (isatty(STDIN_FILENO) && in->rfd <= 2);
-}
-/**
  * _clear - give values to struct
  * @in: pointer structer
  */
@@ -26,7 +17,7 @@ void _clear(inf_t *in)
  */
 void _set(inf_t *in, char **av)
 {
-	int a;
+	int a = 0;
 
 	in->fn = av[0];
 	if (in->arg)
@@ -51,62 +42,30 @@ void _set(inf_t *in, char **av)
 	}
 }
 /**
- * strok - divide string to words
- * @st: string
- * @del: delimter
- * Return: ptr
+ * free_info - function
+ * @in: struct
+ * @f: files
  */
-char **strok(char *st, char *del)
+void free_info(inf_t *in, int f)
 {
-	int x, y, i, j, n = 0;
-	char **str;
-
-	if (st == NULL || st[0] == 0)
-		return (NULL);
-	if (!del)
+	_free(in->argv);
+	in->argv = NULL;
+	in->path = NULL;
+	if (f)
 	{
-		del = " ";
+		if (!in->cb)
+			free(in->arg);
+		if (in->env)
+			free_list(&(in->env));
+		if (in->his)
+			free_list(&(in->his));
+		if (in->ali)
+			free_list(&(in->ali));
+		_free(in->environ);
+			in->environ = NULL;
+		bufree((void **)in->cb);
+		if (in->rfd > 2)
+			close(in->rfd);
+		_putchar(BUF_FLUSH);
 	}
-	for (i = 0; st[i] != '\0'; i++)
-		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
-		n++;
-	if (n == 0)
-		return (NULL);
-	str = malloc((1 + n) * sizeof(char *));
-	if (!str)
-		return (NULL);
-	for (i = 0, j = 0; j < n; j++)
-	{
-		while (is_del(st[i], del))
-			i++;
-		x = 0;
-		while (!is_del(st[i + x], del) && st[i + x])
-			x++;
-		str[j] = malloc((x + 1) * sizeof(char));
-		if (!str[j])
-		{
-			for (x = 0; x < j; x++)
-				free(str[x]);
-			free(str);
-			return (NULL);
-		}
-		for (y = 0; y < x; y++)
-			str[j][y] = st[i++];
-		str[j][y] = 0;
-	}
-	str[j] = NULL;
-	return (str);
-}
-/**
- * is_del - function
- * @c: char
- * @d: delimter
- * Return: 1 0
- */
-int is_del(char c, char *d)
-{
-	while (*d)
-		if (*d++ == c)
-			return (1);
-	return (0);
 }

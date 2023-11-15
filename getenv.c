@@ -81,36 +81,3 @@ int _setenv(inf_t *in, char *var, char *value)
 	in->en_mod = 1;
 	return (0);
 }
-/**
- * **list_to_strings - function
- * @h: ptr
- * Return: str
- */
-char **list_to_strings(list_t *h)
-{
-	list_t *node = h;
-	size_t x = list_len(h), y;
-	char **st;
-	char *str;
-
-	if (!h || !x)
-		return (NULL);
-	st = malloc(sizeof(char *) * (x + 1));
-	if (!st)
-		return (NULL);
-	for (x = 0; node; node = node->next, x++)
-	{
-		str = malloc(_strlen(node->str) + 1);
-		if (!str)
-		{
-			for (y = 0; y < x; y++)
-				free(st[y]);
-			free(st);
-			return (NULL);
-		}
-		str = _strcpy(str, node->str);
-		st[x] = str;
-	}
-	st[x] = NULL;
-	return (st);
-}

@@ -37,50 +37,74 @@ size_t print_list(const list_t *h)
 	return (c);
 }
 /**
- * bufree - free ptr
- * @p: pointer
- * Return: 0 1
- */
-int bufree(void **p)
-{
-	if (p && *p)
-	{
-		free(*p);
-		*p = NULL;
-		return (1);
-	}
-	return (0);
-}
-/**
  * *node_start_with - function
  * @c: char
- * @p: string
+ * @pre: string
  * @node: struct
  * Return: node
  */
-list_t *node_start_with(list_t *node, char *p, char c)
+list_t *node_start_with(list_t *node, char *pre, char c)
 {
-	char *pre = NULL;
+	char *p = NULL;
 
 	while (node)
 	{
-		pre = start_with(node->str, p);
-		if (pre && ((c == -1) || (*pre == c)))
+		p = start_with(node->str, pre);
+		if (p && ((c == -1) || (*p == c)))
 			return (node);
 		node = node->next;
 	}
 	return (NULL);
 }
 /**
- * start_with - function
- * @h: ptr
- * @n: ptr
- * Return: ptr
+ * get_node_index - function
+ * @head: ptr
+ * @node: ptr
+ * Return: index -1
  */
-char *start_with(const char *h, const char *n)
+ssize_t get_node_index(list_t *head, list_t *node)
 {
-	while (n)
-		if (n++ != h++)
+	size_t x = 0;
+
+	while (head)
+	{
+		if (head == node)
+			return (x);
+		head = head->next;
+		x++;
+	}
+	return (-1);
+}
+/**
+ * **list_to_strings - function
+ * @h: ptr
+ * Return: str
+ */
+char **list_to_strings(list_t *h)
+{
+	list_t *node = h;
+	size_t x = list_len(h), y;
+	char **st;
+	char *str;
+
+	if (!h || !x)
+		return (NULL);
+	st = malloc(sizeof(char *) * (x + 1));
+	if (!st)
+		return (NULL);
+	for (x = 0; node; node = node->next, x++)
+	{
+		str = malloc(_strlen(node->str) + 1);
+		if (!str)
+		{
+			for (y = 0; y < x; y++)
+				free(st[y]);
+			free(st);
 			return (NULL);
-	return ((char *)h);
+		}
+		str = _strcpy(str, node->str);
+		st[x] = str;
+	}
+	st[x] = NULL;
+	return (st);
 }

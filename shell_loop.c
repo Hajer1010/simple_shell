@@ -1,11 +1,11 @@
 #include "shell.h"
 /**
- * shell- entry point
+ * hsh - entry point
  * @in: struct
  * @av: arguments
  * Return: 0
  */
-int shell(inf_t *in, char **av)
+int hsh(inf_t *in, char **av)
 {
 	ssize_t x = 0;
 	int bul = 0;
@@ -59,6 +59,7 @@ int find_builtin(inf_t *in)
 		{"alias", _alias},
 		{NULL, NULL}
 	};
+
 	for (x = 0; builtint[x].t; x++)
 		if (_strcmp(in->argv[0], builtint[x].t) == 0)
 		{

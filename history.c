@@ -12,7 +12,7 @@ char *get_hist_file(inf_t *in)
 	r = _getenv(in, "HOME=");
 	if (!r)
 		return (NULL);
-	b =  malloc(sizeof(char) * (_strlen(r)) + _strlen((HIST_FILE) + 2));
+	b =  malloc(sizeof(char) * (_strlen(r) + _strlen(HIST_FILE) + 2));
 	if (!b)
 		return (NULL);
 	b[0] = 0;
@@ -115,17 +115,17 @@ int renum_hist(inf_t *in)
 /**
  * build_hist_list - function add to hist link list
  * @in: struct
- * @b: buffer
- * @c: linecount
+ * @buf: buffer
+ * @lc: linecount
  * Return: 0
  */
-int build_hist_list(inf_t *in, char *b, int c)
+int build_hist_list(inf_t *in, char *buf, int lc)
 {
 	list_t *node = NULL;
 
 	if (in->his)
 		node = in->his;
-	add_node_end(&node, b, c);
+	add_node_end(&node, buf, lc);
 	if (!in->his)
 		in->his = node;
 	return (0);

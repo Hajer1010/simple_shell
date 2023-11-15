@@ -98,8 +98,77 @@ typedef struct builtin
 
 size_t list_len(const list_t *);
 size_t print_list(const list_t *);
-int bufree(void **);
 list_t *node_start_with(list_t *, char *, char);
+ssize_t get_node_index(list_t *, list_t *);
+char **list_to_strings(list_t *h);
+
+int _history(inf_t *);
+int _alias(inf_t *);
+
+int _myexit(inf_t *);
+int _mycd(inf_t *);
+int _myhelp(inf_t *);
+
+int bufree(void **);
+
+int _myenv(inf_t *);
+char *_getenv(inf_t *, const char *);
+int _mysetenv(inf_t *);
+int _myunsetenv(inf_t *);
+int populate_env_list(inf_t *);
+
+void _eputs(char *);
+int _eputchar(char );
+int _putfd(char , int);
+int _psfd(char *, int);
+
+void _perror(inf_t *, char *);
+int print_dec(int , int);
+void rm_comments(char *);
+char *con_num(long int , int , int );
+int e_atoi(char *);
+
+char *_strncat(char *, char *, int);
+char *_strncpy(char *, char *, int);
+char *_strchr(char *, char );
+
+char *_memset(char *, char , unsigned int );
+void *_realloc(void *, unsigned int , unsigned int);
+void _free(char **);
+
+char **get_environ(inf_t *);
+int _unsetenv(inf_t *, char *);
+int _setenv(inf_t *, char *, char *);
+
+ssize_t get_input(inf_t *);
+int _getline(inf_t *, char **, size_t *);
+void sigintHandler(int);
+
+char *get_hist_file(inf_t *);
+int w_history(inf_t *);
+int r_hist(inf_t *);
+int renum_hist(inf_t *);
+int build_hist_list(inf_t *in, char *buf, int lc);
+
+void _clear(inf_t *);
+void _set(inf_t *, char **);
+void free_info(inf_t *, int);
+
+int _atoi(char *);
+int _isalpha(int);
+int inter(inf_t *);
+int is_del(char , char *);
+
+list_t *add_node(list_t **, const char *, int);
+list_t *add_node_end(list_t **, const char *, int);
+int delete_node_at_index(list_t **, unsigned int);
+size_t print_list_str(const list_t *);
+void free_list(list_t **);
+
+int is_cmd(inf_t *, char *);
+char *dup_chars(char *, int , int );
+char *find_path(inf_t *, char *, char *);
+
 char *start_with(const char *, const char *);
 int _putchar(char );
 int _strlen(char *);
@@ -108,69 +177,21 @@ char *_strcpy(char *, char *);
 int _strcmp(char *, char *);
 char *_strdup(const char *);
 void _puts(char *);
-char *_memset(char *, char , unsigned int );
-int _myexit(inf_t *);
-int _mycd(inf_t *);
-int _myhelp(inf_t *);
-int _history(inf_t *);
-int _alias(inf_t *);
-int _myenv(inf_t *);
-char *_getenv(inf_t *, const char *);
-ssize_t get_node_index(list_t *, list_t *);
-char **strok2(char *, char);
-void free_info(inf_t *, int);
-int _mysetenv(inf_t *);
-char **list_to_strings(list_t *);
-int _myunsetenv(inf_t *);
-int populate_env_list(inf_t *);
-void _eputs(char *);
-size_t print_list_str(const list_t *);
-int _eputchar(char );
-int _putfd(char , int);
-int _psfd(char *, int);
-void _perror(inf_t *, char *);
-int print_dec(int , int);
-void rm_comments(char *);
-char *con_num(long int , int , int );
-int e_atoi(char *);
-char *_strncat(char *, char *, int);
-char *_strncpy(char *, char *, int);
-char *_strchr(char *, char );
-void _free(char **);
-char **get_environ(inf_t *);
-int _unsetenv(inf_t *, char *);
-int _setenv(inf_t *, char *, char *);
-ssize_t get_input(inf_t *);
-int _getline(inf_t *, char **, size_t *);
-void sigintHandler(int);
-char *get_hist_file(inf_t *);
-int w_history(inf_t *);
-int r_hist(inf_t *);
-int renum_hist(inf_t *);
-int build_hist_list(inf_t *in, char *b, int c);
-void *_realloc(void *, unsigned int , unsigned int);
-int inter(inf_t *);
-void _clear(inf_t *);
-void _set(inf_t *, char **);
+
 char **strok(char *, char *);
-int _atoi(char *);
-int _isalpha(int);
-list_t *add_node(list_t **, const char *, int);
-list_t *add_node_end(list_t **, const char *, int);
-int delete_node_at_index(list_t **, unsigned int);
-void free_list(list_t **);
-int is_cmd(inf_t *, char *);
-int is_del(char , char *);
-char *dup_chars(char *, int , int );
-char *find_path(inf_t *, char *, char *);
-int shell(inf_t *, char **);
+char **strok2(char *, char);
+
+int hsh(inf_t *, char **);
 int find_builtin(inf_t *);
 void find_cmd(inf_t *);
+void fork_cmd(inf_t *);
+
 int is_chain(inf_t *, char *, size_t *);
 void check_chain(inf_t *, char *, size_t *, size_t , size_t );
 int replace_alias(inf_t *);
 int replace_vars(inf_t *);
 int replace_string(char **, char *);
-int loopshell(char **);
-void fork_cmd(inf_t *);
+
+int loophsh(char **);
+
 #endif
