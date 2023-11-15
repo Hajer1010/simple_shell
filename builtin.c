@@ -27,10 +27,10 @@ int _myexit(inf_t *in)
 	return (-2);
 }
 /**
-* _mycd - function
-* @in: Structure
-* Return: Always 0
-*/
+ * _mycd - function
+ * @in: Structure
+ * Return: Always 0
+ */
 int _mycd(inf_t *in)
 {
 	char *s, *dir, buffer[1024];

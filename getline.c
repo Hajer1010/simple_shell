@@ -45,10 +45,10 @@ ssize_t input_buf(inf_t *in, char **buf, size_t *len)
 	return (r);
 }
 /**
-* get_input - gets a line minus
-* @in: parameter
-* Return: bytes read
-*/
+ * get_input - gets a line minus
+ * @in: parameter
+ * Return: bytes read
+ */
 ssize_t get_input(inf_t *in)
 {
 	static char *buf;
@@ -84,12 +84,12 @@ ssize_t get_input(inf_t *in)
 	return (r);
 }
 /**
-* read_buf - reads buffer
-* @in: parameter
-* @buf: buffer
-* @i: size
-* Return: r
-*/
+ * read_buf - reads buffer
+ * @in: parameter
+ * @buf: buffer
+ * @i: size
+ * Return: r
+ */
 ssize_t read_buf(inf_t *in, char *buf, size_t *i)
 {
 	ssize_t r = 0;
@@ -102,12 +102,12 @@ ssize_t read_buf(inf_t *in, char *buf, size_t *i)
 	return (r);
 }
 /**
-* _getline - gets the next line
-* @in: parameter
-* @ptr: address  preallocated or NULL
-* @length: size preallocated
-* Return: s
-*/
+ * _getline - gets the next line
+ * @in: parameter
+ * @ptr: address  preallocated or NULL
+ * @length: size preallocated
+ * Return: s
+ */
 int _getline(inf_t *in, char **ptr, size_t *length)
 {
 	static char buf[READ_BUF_SIZE];
@@ -142,11 +142,11 @@ int _getline(inf_t *in, char **ptr, size_t *length)
 	return (s);
 }
 /**
-* sigintHandler - blocks ctrl-C
-* @sig_num: the signal number
-*
-* Return: void
-*/
+ * sigintHandler - blocks ctrl-C
+ * @sig_num: the signal number
+ *
+ * Return: void
+ */
 void sigintHandler(__attribute__((unused)) int sig_num)
 {
 	_puts("\n");

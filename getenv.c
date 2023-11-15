@@ -1,9 +1,9 @@
 #include "shell.h"
 /**
-* get_environ - returns the string array copy of our environ
-* @in: Structure containing potential arguments.
-* Return: Always 0
-*/
+ * get_environ - returns the string array copy of our environ
+ * @in: Structure containing potential arguments.
+ * Return: Always 0
+ */
 char **get_environ(inf_t *in)
 {
 	if (!in->environ || in->en_mod)
@@ -14,11 +14,11 @@ char **get_environ(inf_t *in)
 	return (in->environ);
 }
 /**
-* _unsetenv - Remove an environment variable
-* @in: Structure containing argument
-* Return: 1 on delete, 0 otherwise
-* @var: the string env var property
-*/
+ * _unsetenv - Remove an environment variable
+ * @in: Structure containing argument
+ * Return: 1 on delete, 0 otherwise
+ * @var: the string env var property
+ */
 int _unsetenv(inf_t *in, char *var)
 {
 	list_t *node = in->env;
@@ -44,11 +44,11 @@ int _unsetenv(inf_t *in, char *var)
 }
 /**
  * _setenv - Initialize anew environment
-* @in: Structure
-* @var: the string env var property
-* @value: the string env var value
-*  Return: 0
-*/
+ * @in: Structure
+ * @var: the string env var property
+ * @value: the string env var value
+ *  Return: 0
+ */
 int _setenv(inf_t *in, char *var, char *value)
 {
 	char *buf = NULL;
