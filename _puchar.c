@@ -66,7 +66,7 @@ char *_strcpy(char *dest, char *src)
  * @str: string
  * Return: ptr
  */
-char *_strdup(char *str)
+char *_strdup(const char *str)
 {
 	int i, z;
 	char *ptr;

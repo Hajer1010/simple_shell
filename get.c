@@ -69,14 +69,14 @@ char **strok2(char *st, char del)
 	int x, y, i, j, n = 0;
 	char **str;
 
-	if (st == NULL || st[0] == '\0')
+	if (st == NULL || st[0] == 0)
 		return (NULL);
 	for (i = 0; st[i] != '\0'; i++)
-		if ((st[i] != del && !st[i + 1] == del) ||
-			(st[i] != del && !st[i + 1]) || st[i + 1] == d)
+		if ((st[i] != del && st[i + 1] == del) ||
+			(st[i] != del && !st[i + 1]) || st[i + 1] == del)
 		n++;
 	if (n == 0)
-	return (NULL);
+		return (NULL);
 	str = malloc((1 + n) * sizeof(char *));
 	if (!str)
 		return (NULL);
@@ -116,14 +116,14 @@ void free_info(inf_t *in, int f)
 	{
 		if (!in->cb)
 			free(in->argv);
-		if (in->en)
-			free_list(&(in->en));
+		if (in->env)
+			free_list(&(in->env));
 		if (in->his)
 			free_list(&(in->his));
 		if (in->ali)
 			free_list(&(in->ali));
-		_free(in->env);
-		in->env = NULL;
+		_free(in->environ);
+		in->environ = NULL;
 		bufree((void **)in->cb);
 		if (in->rfd > 2)
 			close(in->rfd);

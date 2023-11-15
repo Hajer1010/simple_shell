@@ -7,9 +7,9 @@
  */
 void _perror(inf_t *in, char *es)
 {
-	_eputs(in->fn));
+	_eputs(in->fn);
 	_eputs(":");
-	print_dec(inf->lc, STDERR_FILENO);
+	print_dec(in->lc, STDERR_FILENO);
 	_eputs(":");
 	_eputs(in->argv[0]);
 	_eputs(":");
@@ -35,7 +35,7 @@ int print_dec(int n, int fd)
 	}
 	if (n < 0)
 	{
-		_putchars("-");
+		_putchars('-');
 		c++;
 		n = -n;
 	}
@@ -89,7 +89,7 @@ char *con_num(int b, long int n, int f)
 {
 	static char buf[50];
 	char *p;
-	static char a;
+	static char *a;
 	char g = 0;
 	unsigned long num = n;
 

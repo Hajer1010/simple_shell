@@ -7,7 +7,7 @@
  */
 int main(int ac, char **av)
 {
-	inf_t in[] = {INF_INIT};
+	inf_t in[] = { INF_INIT };
 	int fd = 2;
 
 	asm("mov %1, %0\n\t"

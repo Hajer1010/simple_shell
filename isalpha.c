@@ -32,3 +32,22 @@ int _isalpha(int c)
 		return (1);
 	return (0);
 }
+/**
+ * get_node_index - function
+ * @head: ptr
+ * @node: ptr
+ * Return: index -1
+ */
+ssize_t get_node_index(list_t *head, list_t *node)
+{
+	size_t x = 0;
+
+	while (head)
+	{
+		if (head == node)
+			return (x);
+		head = head->next;
+		x++;
+	}
+	return (-1);
+}

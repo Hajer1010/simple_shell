@@ -9,12 +9,14 @@
 
 void _eputs(char *str)
 {
+	int i;
+
 	if (!str)
 		return;
-		for (int i = (0); str[i] != ('\0'); i++)
-		{
-			_eputchar(str[i]);
-		}
+	for (i = (0); str[i] != ('\0'); i++)
+	{
+		_eputchar(str[i]);
+	}
 }
 
 /**
@@ -30,13 +32,13 @@ int _eputchar(char c)
 	static int i = (0);
 	static char buf[WRITE_BUF_SIZE];
 
-	if (c == BUFF_FLUSH || i >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
 		write(2, buf, i);
 		i = (c == BUF_FLUSH) ? (0) : i;
 	}
 
-	if (c != BUF_flush)
+	if (c != BUF_FLUSH)
 	{
 		buf[i++] = (c);
 
@@ -58,7 +60,7 @@ int _putfd(char c, int fd)
 	static int i = (0);
 	static char buf[WRITE_BUF_SIZE];
 
-	if ((c == BUF_FLISH || i >= WRITE_BUF_SIZE) && (write(fd, buf, i) || 1))
+	if ((c == BUF_FLUSH || i >= WRITE_BUF_SIZE) && (write(fd, buf, i) || 1))
 	{
 		i = (c == BUF_FLUSH) ? (0) : i;
 	}

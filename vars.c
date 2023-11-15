@@ -105,13 +105,13 @@ int replace_vars(inf_t *in)
 		}
 		if (!_strcmp(in->argv[i], "$$"))
 		{
-			replace_string(&(info->argv[i]), _strdup(con_num(getpid(), 10, 0)));
+			replace_string(&(in->argv[i]), _strdup(con_num(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_start_with(in->en, &in->argv[i][1], '=');
+		node = node_start_with(in->env, &in->argv[i][1], '=');
 		if (node)
 		{
-			replace_string(&(in->argv[i]), _strdup(_strchr(node->s, '=') + 1));
+			replace_string(&(in->argv[i]), _strdup(_strchr(node->str, '=') + 1));
 			continue;
 		}
 		replace_string(&in->argv[i], _strdup(""));

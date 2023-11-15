@@ -6,7 +6,7 @@
  */
 int _myenv(inf_t *in)
 {
-	print_list_str(in->en);
+	print_list_str(in->env);
 	return (0);
 }
 /**
@@ -17,12 +17,12 @@ int _myenv(inf_t *in)
  */
 char *_getenv(inf_t *in, const char *na)
 {
-	list_t *node = in->en;
+	list_t *node = in->env;
 	char *p;
 
 	while (node)
 	{
-		p = start_with(node->str, na)
+		p = start_with(node->str, na);
 			if (p && *p)
 				return (p);
 		node = node->next;
@@ -41,7 +41,7 @@ int _mysetenv(inf_t *in)
 		_eputs("incorrect number of arg\n");
 		return (1);
 	}
-	if (_setenv(in, in->argv[1], in->arg[2]))
+	if (_setenv(in, in->argv[1], in->argv[2]))
 		return (0);
 	return (1);
 }
@@ -73,9 +73,9 @@ int populate_env_list(inf_t *in)
 	list_t *node = NULL;
 	size_t x;
 
-	for (x = 0; env[x]; x++)
-		add_node_end(&node, env[x], 0);
-	in->en = node;
+	for (x = 0; environ[x]; x++)
+		add_node_end(&node, environ[x], 0);
+	in->env = node;
 	return (0);
 }
 

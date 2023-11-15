@@ -28,7 +28,7 @@ int shell(inf_t *in, char **av)
 			_putchar('\n');
 		free_info(in, 0);
 	}
-	w_hist(in);
+	w_history(in);
 	free_info(in, 1);
 	if (!inter(in) && in->status)
 		exit(in->status);
@@ -63,7 +63,7 @@ int find_builtin(inf_t *in)
 		if (_strcmp(in->argv[0], builtint[x].t) == 0)
 		{
 			in->lc++;
-			builtin_r = builtint[x].fun(inf);
+			builtin_r = builtint[x].fun(in);
 			break;
 		}
 	return (builtin_r);
@@ -100,7 +100,7 @@ void find_cmd(inf_t *in)
 	{
 		if ((inter(in) || _getenv(in, "PATH=")
 					|| in->argv[0][0] == '/')
-				&& is_cmd(in->argv[0]))
+				&& is_cmd(in, in->argv[0]))
 			fork_cmd(in);
 		else if (*(in->arg) != '\n')
 		{
@@ -139,7 +139,7 @@ void fork_cmd(inf_t *in)
 			if (WIFEXITED(in->status))
 			{
 				in->status = WEXITSTATUS(in->status);
-				if (in->status == 126;)
+				if (in->status == 126)
 					_perror(in, "permission denied\n");
 			}
 		}

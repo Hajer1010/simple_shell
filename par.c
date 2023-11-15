@@ -7,7 +7,7 @@
  */
 int is_cmd(inf_t *in, char *p)
 {
-	struct state st;
+	struct stat st;
 
 	(void)in;
 	if (!p || stat(p, &st))
@@ -30,7 +30,7 @@ char *dup_chars(char *ps, int sa, int so)
 	static char buf[1024];
 	int x = 0, y = 0;
 
-	for (y = 0; x = sa; x < so; x++)
+	for (y = 0, x = sa; x < so; x++)
 		if (ps[x] != ':')
 			buf[y++] = ps[x];
 	buf[y] = 0;

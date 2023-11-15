@@ -14,10 +14,10 @@ int inter(inf_t *in)
  */
 void _clear(inf_t *in)
 {
-	in->arg->NULL;
-	in->argv->NULL;
-	in->path->NULL;
-	in->ac->0;
+	in->arg = NULL;
+	in->argv = NULL;
+	in->path = NULL;
+	in->ac = 0;
 }
 /**
  * _set - set values to struct
@@ -37,12 +37,12 @@ void _set(inf_t *in, char **av)
 			in->argv = malloc(sizeof(char *) * 2);
 			if (in->argv)
 			{
-				in->argv[0] = _stdup(in->arg);
+				in->argv[0] = _strdup(in->arg);
 				in->argv[1] = NULL;
 			}
 		}
 
-		for (a = 0; in->argv && in->argv[a]; i++)
+		for (a = 0; in->argv && in->argv[a]; a++)
 			;
 		in->ac = a;
 		replace_alias(in);
@@ -62,9 +62,9 @@ char **strok(char *st, char *del)
 
 	if (st == NULL || st[0] == '\0')
 		return (NULL);
-	if (!d)
+	if (!del)
 	{
-		d = " ";
+		del = " ";
 	}
 	for (i = 0; st[i] != '\0'; i++)
 		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
@@ -95,4 +95,17 @@ char **strok(char *st, char *del)
 	}
 	str[j] = NULL;
 	return (str);
+}
+/**
+ * is_del - function
+ * @c: char
+ * @d: delimter
+ * Return: 1 0
+ */
+int is_del(char c, char *d)
+{
+	while (*d)
+		if (*d++ == c)
+			return (1);
+	return (0);
 }

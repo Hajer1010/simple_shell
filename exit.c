@@ -1,37 +1,57 @@
 #include "shell.h"
 /**
- * _strcat - a function that concatenates two strings
+ * _strncat - a function that concatenates two strings
  * @dest: pointer to dest
  * @src: pointer to src
+ * @n: numbers
  * Return: pointer to result
  */
-char *_strcat(char *dest, char *src)
+char *_strncat(char *dest, char *src, int n)
 {
 	int st1, st2;
+	char *st = dest;
 
 	st1 = 0;
-	while (dest[st1])
+	st2 = 0;
+	while (dest[st1] != '\0')
 		st1++;
-	for (st2 = 0; src[st2] ; st2++)
-		dest[st1++] = src[st2];
-	return (dest);
+	while (src[st2] != '\0' && st2 < n)
+	{
+		dest[st1] = src[st2];
+		st1++;
+		st2++;
+	}
+	if (st2 < n)
+		dest[st1] = '\0';
+	return (st);
 }
 /**
- * *_strcpy -  copies the string pointed to by src
+ * *_strncpy -  copies the string pointed to by src
  * @dest: type string
  * @src: type string
+ * @n: numbers
  * Return: pointer to dest
  */
-char *_strcpy(char *dest, char *src)
+char *_strncpy(char *dest, char *src, int n)
 {
-	int i = -1;
+	int i, j;
+	char *st = dest;
 
 	do {
 		i++;
 		dest[i] = src[i];
-	} while (src[i] != '\0');
+	} while (src[i] != '\0' && i < n - 1);
+	if (i < n)
+	{
+		j = i;
+		while (j < n)
+		{
+			dest[j] = '\0';
+			j++;
+		}
+	}
 
-	return (dest);
+	return (st);
 }
 /**
  * *_strchr - function that locates a character in a string
@@ -41,14 +61,9 @@ char *_strcpy(char *dest, char *src)
  */
 char *_strchr(char *s, char c)
 {
-	unsigned int a;
-
-	for (a = 0; s[a] >= '\0'; a++)
-	{
-		if (s[a] == c)
-		{
-			return (s + a);
-		}
-	}
-	return ('\0');
+	do {
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
+	return (NULL);
 }

@@ -6,12 +6,12 @@
 */
 char **get_environ(inf_t *in)
 {
-	if (!in->env || in->en_mod)
+	if (!in->environ || in->en_mod)
 	{
-		in->env = list_to_strings(in->en);
+		in->environ = list_to_strings(in->env);
 		in->en_mod = 0;
 	}
-	return (in->env);
+	return (in->environ);
 }
 /**
 * _unsetenv - Remove an environment variable
@@ -21,7 +21,7 @@ char **get_environ(inf_t *in)
 */
 int _unsetenv(inf_t *in, char *var)
 {
-	list_t *node = in->en;
+	list_t *node = in->env;
 	size_t i = 0;
 	char *p;
 
@@ -32,9 +32,9 @@ int _unsetenv(inf_t *in, char *var)
 		p = start_with(node->str, var);
 		if (p && *p == '=')
 		{
-			in->en_mod = delete_node_at_index(&(in->en), i);
+			in->en_mod = delete_node_at_index(&(in->env), i);
 			i = 0;
-			node = in->en;
+			node = in->env;
 			continue;
 		}
 		node = node->next;
@@ -63,7 +63,7 @@ int _setenv(inf_t *in, char *var, char *value)
 	_strcpy(buf, var);
 	_strcat(buf, "=");
 	_strcat(buf, value);
-	node = in->en;
+	node = in->env;
 	while (node)
 	{
 		p = start_with(node->str, var);
@@ -76,7 +76,7 @@ int _setenv(inf_t *in, char *var, char *value)
 		}
 		node = node->next;
 	}
-	add_node_end(&(in->en), buf, 0);
+	add_node_end(&(in->env), buf, 0);
 	free(buf);
 	in->en_mod = 1;
 	return (0);

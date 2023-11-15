@@ -12,7 +12,7 @@ char *get_hist_file(inf_t *in)
 	r = _getenv(in, "HOME=");
 	if (!r)
 		return (NULL);
-	b =  malloc(size(char) * (_strlen(r)) + _strlen((HIST_FILE) + 2));
+	b =  malloc(sizeof(char) * (_strlen(r)) + _strlen((HIST_FILE) + 2));
 	if (!b)
 		return (NULL);
 	b[0] = 0;
@@ -38,17 +38,14 @@ int w_history(inf_t *in)
 	free(f);
 	if (fd == -1)
 		return (-1);
-	while (node)
+	for (node = in->his; node; node = node->next)
 	{
-		for (node = in->his; node; node = node->next)
-		{
-			_psfd(node->str, fd);
-			_putfd('\n', fd);
-		}
-		_putfd(BUF_FLUSH, fd);
-		close(fd);
-		return (1);
+		_psfd(node->str, fd);
+		_putfd('\n', fd);
 	}
+	_putfd(BUF_FLUSH, fd);
+	close(fd);
+	return (1);
 }
 /**
  * r_hist - function that read history
@@ -89,12 +86,12 @@ int r_hist(inf_t *in)
 			build_hist_list(in, b + la, c++);
 			la = x + 1; }
 		x++; }
-	if (la != i)
+	if (la != x)
 		build_hist_list(in, b + la, c++);
 	free(b);
 	in->hc = c;
 	while (in->hc-- >= HIST_MAX)
-		delete_nodeint_at_index(&(in->hist), 0);
+		delete_node_at_index(&(in->his), 0);
 	renum_hist(in);
 	return (in->hc);
 }
@@ -105,7 +102,7 @@ int r_hist(inf_t *in)
  */
 int renum_hist(inf_t *in)
 {
-	list_t *node = in->hist;
+	list_t *node = in->his;
 	int i;
 
 	for (i = 0; node; i++)

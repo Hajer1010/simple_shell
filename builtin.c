@@ -20,7 +20,7 @@ int _myexit(inf_t *in)
 			_eputchar('\n');
 			return (1);
 		}
-		in->en = e_atoi(in->argv[1]);
+		in->ern = e_atoi(in->argv[1]);
 		return (-2);
 	}
 	in->ern = -1;

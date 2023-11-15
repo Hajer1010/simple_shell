@@ -26,7 +26,7 @@ int _unset_alias(inf_t *in, char *s)
 	m = *p;
 	*p = 0;
 	r = delete_node_at_index(&(in->ali),
-			*get_node_at_index(in->ali, node_start_with(in->ali, s, -1)));
+			get_node_index(in->ali, node_start_with(in->ali, s, -1)));
 	*p = m;
 	return (r);
 }
@@ -40,7 +40,7 @@ int set_ali(inf_t *in, char *s)
 {
 	char *eq_sign;
 
-	p = _strchr(s, '=');
+	eq_sign = _strchr(s, '=');
 	if (!eq_sign)
 	{
 		return (1);
@@ -49,8 +49,8 @@ int set_ali(inf_t *in, char *s)
 	{
 		return (_unset_alias(in, s));
 	}
-	_unset_alias(in. s);
-	return (*add_node_end(&(in->ali), s, 0) == NULL);
+	_unset_alias(in, s);
+	return (add_node_end(&(in->ali), s, 0) == NULL);
 }
 /**
  * print_ali - function
@@ -63,12 +63,12 @@ int print_ali(list_t *node)
 
 	if (node)
 	{
-		eq_sign = _strchr(node->s, '=');
-		for (v = node->str; v <= eq_sign; v++;)
+		eq_sign = _strchr(node->str, '=');
+		for (v = node->str; v <= eq_sign; v++)
 			_putchar(*v);
-			_putchar('\'');
-			_puts(eq_sign + 1);
-			_puts("'\n");
+		_putchar('\'');
+		_puts(eq_sign + 1);
+		_puts("'\n");
 		return (0);
 	}
 	return (1);
@@ -81,8 +81,8 @@ int print_ali(list_t *node)
 int _alias(inf_t *in)
 {
 	int i = 0;
-	char *eq_sign;
-	linked_t *node = NULL;
+	char *eq_sign = NULL;
+	list_t *node = NULL;
 
 	if (in->ac == 1)
 	{

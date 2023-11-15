@@ -8,10 +8,10 @@ size_t list_len(const list_t *h)
 {
 	size_t c = 0;
 
-	while (h != NULL)
+	while (h)
 	{
-		c++;
 		h = h->next;
+		c++;
 	}
 	return (c);
 }
@@ -64,7 +64,7 @@ list_t *node_start_with(list_t *node, char *p, char c)
 
 	while (node)
 	{
-		pre = star_with(node->s, p);
+		pre = start_with(node->str, p);
 		if (pre && ((c == -1) || (*pre == c)))
 			return (node);
 		node = node->next;
