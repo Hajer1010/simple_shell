@@ -96,11 +96,10 @@ char *con_num(long int n, int b, int f)
 	p = &buf[49];
 	*p = '\0';
 
-	while (n != 0)
-	{
+	do {
 		*--p = a[num % b];
 		num /= b;
-	}
+	} while (n != 0);
 	if (g)
 		*--p = g;
 	return (p);

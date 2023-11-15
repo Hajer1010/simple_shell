@@ -25,10 +25,12 @@ int _putchar(char c)
  */
 int _strlen(char *s)
 {
-	int length;
+	int length = 0;
 
-	for (length = 0; *s != '\0'; s++)
-		++length;
+	if (!s)
+		return (0);
+	while (*s++)
+		length++;
 	return (length);
 
 }
@@ -40,19 +42,19 @@ int _strlen(char *s)
  */
 int _strcmp(char *s1, char *s2)
 {
-	int com = 0;
-
-	while (*s1)
+	while (*s1 && *s2)
 	{
 		if (*s1 != *s2)
 		{
-			com = ((int)*s1 - 48) - ((int)*s2 - 48);
-			break;
+			return (*s1 - *s2);
 		}
 		s1++;
 		s2++;
 	}
-	return (com);
+	if (*s1 == *s2)
+		return (0);
+	else
+		return (*s1 < *s2 ? -1 : 1);
 }
 /**
  * *_strcpy -  copies the string pointed to by src
@@ -66,7 +68,7 @@ char *_strcpy(char *dest, char *src)
 
 	if (dest == src || src == 0)
 		return (dest);
-	while (src[i] != '\0')
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -81,27 +83,17 @@ char *_strcpy(char *dest, char *src)
  */
 char *_strdup(const char *str)
 {
-	int i, z;
+	int i = 0;
 	char *ptr;
 
 	if (str == NULL)
-	{
 		return (NULL);
-	}
-
-	for (z = 0; str[z] != '\0'; z++)
-	;
-
-	ptr = malloc(z * sizeof(*str) + 1);
-
-	if (ptr == 0)
-	{
+	while (*str++)
+		i++;
+	ptr = malloc(sizeof(char) * (i + 1));
+	if (!ptr)
 		return (NULL);
-	}
-	else
-	{
-		for (i = 0; i < z; i++)
-			ptr[i] = str[i];
-	}
+	for (i++; i--;)
+		ptr[i] = *--str;
 	return (ptr);
 }

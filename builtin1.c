@@ -42,13 +42,9 @@ int set_ali(inf_t *in, char *s)
 
 	eq_sign = _strchr(s, '=');
 	if (!eq_sign)
-	{
 		return (1);
-	}
 	if (!*++eq_sign)
-	{
 		return (_unset_alias(in, s));
-	}
 	_unset_alias(in, s);
 	return (add_node_end(&(in->ali), s, 0) == NULL);
 }

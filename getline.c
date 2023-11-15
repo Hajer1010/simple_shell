@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * input_buf - buffers command
  * @in: struct
@@ -15,32 +14,30 @@ ssize_t input_buf(inf_t *in, char **buf, size_t *len)
 
 	if (!*len)
 	{
-	free(*buf);
-	*buf = NULL;
-	signal(SIGINT, sigintHandler);
+		free(*buf);
+		*buf = NULL;
+		signal(SIGINT, sigintHandler);
 
 #if USE_GETLINE
-	r = getline(buf, &len_p, stdin);
+		r = getline(buf, &len_p, stdin);
 #else
-	r = _getline(in, buf, &len_p);
+		r = _getline(in, buf, &len_p);
 #endif
-	if (r > 0)
-	{
-		if ((*buf)[r - 1] == '\n')
+		if (r > 0)
 		{
-		(*buf)[r - 1] = '\0';
-		r--;
+			if ((*buf)[r - 1] == '\n')
+			{
+				(*buf)[r - 1] = '\0';
+				r--;
+			}
+			in->lcf = 1;
+			rm_comments(*buf);
+			build_hist_list(in, *buf, in->hc++);
+			{
+				*len = r;
+				in->cb = buf;
+			}
 		}
-		in->lcf = 1;
-		rm_comments(*buf);
-		build_hist_list(in, *buf, in->hc++);
-
-		if (_strchr(*buf, ';'))
-		{
-		*len = r;
-		in->cb = buf;
-		}
-	}
 	}
 	return (r);
 }

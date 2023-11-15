@@ -85,7 +85,7 @@ void find_cmd(inf_t *in)
 		in->lcf = 0;
 	}
 	for (x = 0, y = 0; in->arg[x]; x++)
-		if (!is_del(in->arg[x], "\t\n"))
+		if (!is_del(in->arg[x], " \t\n"))
 			y++;
 	if (!y)
 		return;
@@ -121,7 +121,7 @@ void fork_cmd(inf_t *in)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("Error");
+		perror("Error:");
 		return;
 	}
 	if (child_pid == 0)

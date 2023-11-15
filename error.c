@@ -13,7 +13,7 @@ void _eputs(char *str)
 
 	if (!str)
 		return;
-	for (i = (0); str[i] != ('\0'); i++)
+	for (i = 0; str[i] != ('\0'); i++)
 	{
 		_eputchar(str[i]);
 	}
@@ -29,7 +29,7 @@ void _eputs(char *str)
 
 int _eputchar(char c)
 {
-	static int i = (0);
+	static int i;
 	static char buf[WRITE_BUF_SIZE];
 
 	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
@@ -39,10 +39,7 @@ int _eputchar(char c)
 	}
 
 	if (c != BUF_FLUSH)
-	{
 		buf[i++] = c;
-
-	}
 	return (1);
 }
 
@@ -66,10 +63,8 @@ int _putfd(char c, int fd)
 		i = 0;
 	}
 	if (c != BUF_FLUSH)
-	{
 		buf[i++] = (c);
-	}
-return (1);
+	return (1);
 }
 
 /**
@@ -82,7 +77,7 @@ return (1);
 
 int _psfd(char *str, int fd)
 {
-	int i = (0);
+	int i = 0;
 
 	if (!str)
 	{

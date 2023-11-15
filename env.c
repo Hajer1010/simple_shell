@@ -23,8 +23,8 @@ char *_getenv(inf_t *in, const char *na)
 	while (node)
 	{
 		p = start_with(node->str, na);
-			if (p && *p)
-				return (p);
+		if (p && *p)
+			return (p);
 		node = node->next;
 	}
 	return (NULL);
@@ -56,7 +56,7 @@ int _myunsetenv(inf_t *in)
 
 	if (in->ac == 1)
 	{
-		_eputs("few arguments\n");
+		_eputs("few arguments.\n");
 		return (1);
 	}
 	for (x = 1; x <= in->ac; x++)

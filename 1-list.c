@@ -43,7 +43,7 @@ size_t print_list(const list_t *h)
  */
 int bufree(void **p)
 {
-	if (p != NULL && *p != NULL)
+	if (p && *p)
 	{
 		free(*p);
 		*p = NULL;
@@ -80,9 +80,7 @@ list_t *node_start_with(list_t *node, char *p, char c)
 char *start_with(const char *h, const char *n)
 {
 	while (n)
-	{
 		if (n++ != h++)
 			return (NULL);
-	}
 	return ((char *)h);
 }

@@ -9,7 +9,7 @@ void _free(char **s)
 
 	if (!s)
 		return;
-	while (s)
+	while (*s)
 	{
 		free(*s++);
 	}
@@ -31,9 +31,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	if (!new_size)
 		return (free(ptr), NULL);
 	if (new_size == old_size)
-	{
 		return (ptr);
-	}
 	new = malloc(new_size);
 	if (!new)
 		return (NULL);
@@ -108,7 +106,7 @@ void free_info(inf_t *in, int f)
 		if (in->ali)
 			free_list(&(in->ali));
 		_free(in->environ);
-		in->environ = NULL;
+			in->environ = NULL;
 		bufree((void **)in->cb);
 		if (in->rfd > 2)
 			close(in->rfd);

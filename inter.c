@@ -26,12 +26,12 @@ void _clear(inf_t *in)
  */
 void _set(inf_t *in, char **av)
 {
-	int a = 0;
+	int a;
 
 	in->fn = av[0];
 	if (in->arg)
 	{
-		in->argv = strok(in->arg, "\t");
+		in->argv = strok(in->arg, " \t");
 		if (!in->argv)
 		{
 			in->argv = malloc(sizeof(char *) * 2);
@@ -45,6 +45,7 @@ void _set(inf_t *in, char **av)
 		for (a = 0; in->argv && in->argv[a]; a++)
 			;
 		in->ac = a;
+
 		replace_alias(in);
 		replace_vars(in);
 	}
@@ -60,7 +61,7 @@ char **strok(char *st, char *del)
 	int x, y, i, j, n = 0;
 	char **str;
 
-	if (st == NULL || st[0] == '\0')
+	if (st == NULL || st[0] == 0)
 		return (NULL);
 	if (!del)
 	{
@@ -70,7 +71,7 @@ char **strok(char *st, char *del)
 		if (!is_del(st[i], del) && (is_del(st[i + 1], del) || !st[i + 1]))
 		n++;
 	if (n == 0)
-	return (NULL);
+		return (NULL);
 	str = malloc((1 + n) * sizeof(char *));
 	if (!str)
 		return (NULL);

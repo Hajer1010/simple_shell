@@ -37,10 +37,11 @@ char *_strncpy(char *dest, char *src, int n)
 	int i, j;
 	char *st = dest;
 
-	do {
-		i++;
+	while (src[i] != '\0' && i < n - 1)
+	{
 		dest[i] = src[i];
-	} while (src[i] != '\0' && i < n - 1);
+		i++;
+	}
 	if (i < n)
 	{
 		j = i;
