@@ -23,18 +23,18 @@ void _perror(inf_t *in, char *es)
  */
 int print_dec(int n, int fd)
 {
-	int (*_putchars)(char) = _putchar;
+	int (*__putchar)(char) = _putchar;
 	int x, c = 0;
 	unsigned int ab, cu;
 
 	if (fd == STDERR_FILENO)
 	{
-		_putchars = _eputchar;
+		__putchar = _eputchar;
 	}
 	if (n < 0)
 	{
 		ab = -n;
-		_putchars('-');
+		__putchar('-');
 		c++;
 	}
 	else
@@ -44,32 +44,31 @@ int print_dec(int n, int fd)
 	{
 		if (ab / x)
 		{
-			_putchars('0' + cu / x);
+			__putchar('0' + cu / x);
 			c++;
 		}
 		cu %= x;
 	}
-	_putchars('0' + cu);
+	__putchar('0' + cu);
 	c++;
 	return (c);
 }
 /**
  * rm_comments - remove comments
- * @b: ptr
+ * @buf: ptr
  * Return: 0
  */
-void rm_comments(char *b)
+void rm_comments(char *buf)
 {
-	int i = 0;
+	int i ;
 
-	while (b[i] != '\0')
+	for (i = 0; buf[i] != '\0'; i++)
 	{
-		if (b[i] == '#' && (!i || b[i - 1] == ' '))
+		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
 		{
-			b[i] = '\0';
+			buf[i] = '\0';
 			break;
 		}
-		i++;
 	}
 }
 /**
@@ -92,7 +91,7 @@ char *con_num(long int n, int b, int f)
 		num = -n;
 		g = '-';
 	}
-	a = (f & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+	a = f & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	p = &buf[49];
 	*p = '\0';
 

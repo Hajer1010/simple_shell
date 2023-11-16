@@ -38,12 +38,12 @@ int unset_alias(inf_t *in, char *s)
  */
 int set_alias(inf_t *in, char *s)
 {
-	char *eq_sign;
+	char *p;
 
-	eq_sign = _strchr(s, '=');
-	if (!eq_sign)
+	p = _strchr(s, '=');
+	if (!p)
 		return (1);
-	if (!*++eq_sign)
+	if (!*++p)
 		return (unset_alias(in, s));
 	unset_alias(in, s);
 	return (add_node_end(&(in->ali), s, 0) == NULL);
@@ -55,15 +55,15 @@ int set_alias(inf_t *in, char *s)
  */
 int print_alias(list_t *node)
 {
-	char *eq_sign = NULL, *v = NULL;
+	char *p = NULL, *v = NULL;
 
 	if (node)
 	{
-		eq_sign = _strchr(node->str, '=');
-		for (v = node->str; v <= eq_sign; v++)
+		p = _strchr(node->str, '=');
+		for (v = node->str; v <= p; v++)
 			_putchar(*v);
 		_putchar('\'');
-		_puts(eq_sign + 1);
+		_puts(p + 1);
 		_puts("'\n");
 		return (0);
 	}
@@ -77,7 +77,7 @@ int print_alias(list_t *node)
 int _alias(inf_t *in)
 {
 	int i = 0;
-	char *eq_sign = NULL;
+	char *p = NULL;
 	list_t *node = NULL;
 
 	if (in->ac == 1)
@@ -92,9 +92,9 @@ int _alias(inf_t *in)
 	}
 	for (i = 1; in->argv[i]; i++)
 	{
-		eq_sign = _strchr(in->argv[i], '=');
+		p = _strchr(in->argv[i], '=');
 
-		if (eq_sign)
+		if (p)
 			set_alias(in, in->argv[i]);
 		else
 			print_alias(node_start_with(in->ali, in->argv[i], '='));

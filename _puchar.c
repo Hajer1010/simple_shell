@@ -7,15 +7,15 @@
 int _putchar(char c)
 {
 	static int a;
-	static char b[WRITE_BUF_SIZE];
+	static char buf[WRITE_BUF_SIZE];
 
 	if (c == BUF_FLUSH || a >= WRITE_BUF_SIZE)
 	{
-		write(1, b, a);
+		write(1, buf, a);
 		a = 0;
 	}
 	if (c != BUF_FLUSH)
-		b[a++] = c;
+		buf[a++] = c;
 	return (1);
 }
 /**

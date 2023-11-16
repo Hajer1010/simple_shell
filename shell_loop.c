@@ -13,7 +13,7 @@ int hsh(inf_t *in, char **av)
 	while (x != -1 && bul != -2)
 	{
 		_clear(in);
-		if (inter(in))
+		if (interactive(in))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		x = get_input(in);
@@ -24,13 +24,13 @@ int hsh(inf_t *in, char **av)
 			if (bul == -1)
 				find_cmd(in);
 		}
-		else if (inter(in))
+		else if (interactive(in))
 			_putchar('\n');
 		free_info(in, 0);
 	}
 	w_history(in);
 	free_info(in, 1);
-	if (!inter(in) && in->status)
+	if (!interactive(in) && in->status)
 		exit(in->status);
 	if (bul == -2)
 	{
@@ -99,7 +99,7 @@ void find_cmd(inf_t *in)
 	}
 	else
 	{
-		if ((inter(in) || _getenv(in, "PATH=")
+		if ((interactive(in) || _getenv(in, "PATH=")
 					|| in->argv[0][0] == '/')
 				&& is_cmd(in, in->argv[0]))
 			fork_cmd(in);

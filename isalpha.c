@@ -6,9 +6,8 @@
  */
 int _atoi(char *s)
 {
+	int i, sign = 1, flag = 0, output;
 	unsigned int r = 0;
-	int i, sign = 1, flag = 0, o;
-
 	for (i = 0; s[i] != '\0' && flag != 2; i++)
 	{
 		if (s[i] == '-')
@@ -23,10 +22,10 @@ int _atoi(char *s)
 			flag = 2;
 	}
 	if (sign == -1)
-		o = -r;
+		output = -r;
 	else
-		o = r;
-	return (o);
+		output = r;
+	return (output);
 }
 /**
  * _isalpha- function that checks for character
@@ -41,14 +40,15 @@ int _isalpha(int c)
 		return (0);
 }
 /**
- * inter - checks if function runs in interactive mode
+ * interactive - checks if function runs in interactive mode
  * @in: structure
  * Return: 1 0
  */
-int inter(inf_t *in)
+int interactive(inf_t *in)
 {
 	return (isatty(STDIN_FILENO) && in->rfd <= 2);
 }
+
 /**
  * is_del - function
  * @c: char

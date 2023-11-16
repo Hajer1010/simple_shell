@@ -1,5 +1,5 @@
-#ifndef _SHELL_H
-#define _SHELL_H
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,8 +39,8 @@ extern char **environ;
  */
 typedef struct list
 {
-	char *str;
 	int num;
+	char *str;
 	struct list *next;
 } list_t;
 /**
@@ -119,8 +119,8 @@ int populate_env_list(inf_t *);
 
 void _eputs(char *);
 int _eputchar(char );
-int _putfd(char , int);
-int _psfd(char *, int);
+int _putfd(char c, int fd);
+int _psfd(char *str, int fd);
 
 void _perror(inf_t *, char *);
 int print_dec(int , int);
@@ -132,7 +132,7 @@ char *_strncat(char *, char *, int);
 char *_strncpy(char *, char *, int);
 char *_strchr(char *, char );
 
-char *_memset(char *, char , unsigned int );
+char *_memset(char *, char , unsigned int);
 void *_realloc(void *, unsigned int , unsigned int);
 void _free(char **);
 
@@ -156,8 +156,8 @@ void free_info(inf_t *, int);
 
 int _atoi(char *);
 int _isalpha(int);
-int inter(inf_t *);
 int is_del(char , char *);
+int interactive(inf_t *in);
 
 list_t *add_node(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);
@@ -166,7 +166,7 @@ size_t print_list_str(const list_t *);
 void free_list(list_t **);
 
 int is_cmd(inf_t *, char *);
-char *dup_chars(char *, int , int );
+char *dup_chars(char *, int , int);
 char *find_path(inf_t *, char *, char *);
 
 char *start_with(const char *, const char *);
@@ -187,7 +187,7 @@ void find_cmd(inf_t *);
 void fork_cmd(inf_t *);
 
 int is_chain(inf_t *, char *, size_t *);
-void check_chain(inf_t *, char *, size_t *, size_t , size_t );
+void check_chain(inf_t *, char *, size_t *, size_t , size_t);
 int replace_alias(inf_t *);
 int replace_vars(inf_t *);
 int replace_string(char **, char *);
