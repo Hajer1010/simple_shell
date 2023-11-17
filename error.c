@@ -13,7 +13,7 @@ void _eputs(char *str)
 
 	if (!str)
 		return;
-	while ( str[i] != ('\0'))
+	while ( str[i] != '\0')
 	{
 		_eputchar(str[i]);
 		i++;

@@ -34,7 +34,7 @@ char *_strncat(char *dest, char *src, int n)
  */
 char *_strncpy(char *dest, char *src, int n)
 {
-	int i, j;
+	int i = 0, j;
 	char *st = dest;
 
 	while (src[i] != '\0' && i < n - 1)
