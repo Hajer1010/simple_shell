@@ -193,5 +193,4 @@ int replace_vars(inf_t *);
 int replace_string(char **, char *);
 
 int loophsh(char **);
-int main(int, char**);
 #endif

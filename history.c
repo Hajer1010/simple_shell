@@ -84,6 +84,7 @@ int r_hist(inf_t *in)
 		{
 			b[x] = 0;
 			build_hist_list(in, b + la, c++);
+			la = x + 1;
 		}
 	}
 	if (la != x)
